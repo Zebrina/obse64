@@ -302,15 +302,22 @@ class PlayerCharacter : public Character
 public:
 	virtual ~PlayerCharacter();
 
-	u64 unk328[(0x834 - 0x328) / 8];
+	u64 unk328[(0x464 - 0x328) / 8];
+    u32 unk460;
+    float actorValueTempMod[71]; // 464
+    u64 unk628[(0x6A4 - 0x580) / 8];
+    u32 unk6A0;
+    float healthLost; // 6A4
+    float magickaLost; // 6A8
+    float fatigueLost; // 6AC
+    float actorValueDamage[71]; // 6B0
+    u64 unk6B[(0x830 - 0x7CC) / 8];
 	u32 unk830;
 	int timesTrainedThisLevel;	// 834
 	u64 unk838[(0x944 - 0x838) / 8];
 	u32 unk940;
 	int timesTrainedTotal;		// 944
-	u64 unk948[(0x988 - 0x948) / 8];
-	int level;					// 988
-	u64 unk98C[(0xB70 - 0x98C) / 8];
+	u64 unk98C[(0xB70 - 0x948) / 8];
 
 	static PlayerCharacter * Get();
 
@@ -320,6 +327,8 @@ public:
 };
 
 static_assert(sizeof(PlayerCharacter) == 0xB70);
+static_assert(offsetof(PlayerCharacter, actorValueTempMod) == 0x464);
+static_assert(offsetof(PlayerCharacter, healthLost) == 0x6A4);
+static_assert(offsetof(PlayerCharacter, actorValueDamage) == 0x6B0);
 static_assert(offsetof(PlayerCharacter, timesTrainedThisLevel) == 0x834);
 static_assert(offsetof(PlayerCharacter, timesTrainedTotal) == 0x944);
-static_assert(offsetof(PlayerCharacter, level) == 0x988);
