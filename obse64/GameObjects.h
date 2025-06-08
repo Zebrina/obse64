@@ -302,15 +302,15 @@ class PlayerCharacter : public Character
 public:
 	virtual ~PlayerCharacter();
 
-	u64	unk328[(0x834 - 0x328) / 8];
+	u64 unk328[(0x834 - 0x328) / 8];
 	u32 unk830;
 	int timesTrainedThisLevel;	// 834
-	u64	unk838[(0x944 - 0x838) / 8];
+	u64 unk838[(0x944 - 0x838) / 8];
 	u32 unk940;
 	int timesTrainedTotal;		// 944
-	u64	unk948[(0x988 - 0x948) / 8];
+	u64 unk948[(0x988 - 0x948) / 8];
 	int level;					// 988
-	u64	unk98C[(0xB70 - 0x98C) / 8];
+	u64 unk98C[(0xB70 - 0x98C) / 8];
 
 	static PlayerCharacter * Get();
 
