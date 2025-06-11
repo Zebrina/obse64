@@ -34,7 +34,7 @@ struct ParamTypeInfo
 };
 
 // may need to patch/redirect this as well
-RelocPtr <ParamTypeInfo> g_paramTypeInfo(0x08FF6670);
+RelocPtr <ParamTypeInfo> g_paramTypeInfo(0x08FB9030);
 
 class HookedCommandTable
 {
@@ -469,10 +469,10 @@ u16 GetNumParameters(u32 cmdIdx)
 	return g_commandTable.GetByIdx(cmdIdx)->numParams;
 }
 
-RelocAddr <decltype(&IsScriptCmdParamAForm)> IsScriptCmdParamAForm_Original(0x06A70870);
-RelocAddr <decltype(&IsScriptCmdParamARefr)> IsScriptCmdParamARefr_Original(0x06A70820);
-RelocAddr <decltype(&GetCommandInfo)> GetCommandInfo_Original(0x0696FE00);
-RelocAddr <decltype(&GetNumParameters)> GetNumParameters_Original(0x06A70800);
+RelocAddr <decltype(&IsScriptCmdParamAForm)> IsScriptCmdParamAForm_Original(0x06A44C10);
+RelocAddr <decltype(&IsScriptCmdParamARefr)> IsScriptCmdParamARefr_Original(0x06A44BC0);
+RelocAddr <decltype(&GetCommandInfo)> GetCommandInfo_Original(0x06944240);
+RelocAddr <decltype(&GetNumParameters)> GetNumParameters_Original(0x06A44BA0);
 
 void Hooks_Script_Apply()
 {
