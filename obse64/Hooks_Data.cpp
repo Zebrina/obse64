@@ -4,7 +4,7 @@
 #include "GameData.h"
 #include "PluginManager.h"
 
-RelocAddr <uintptr_t> LoadingComplete_Hook(0x065FB250 + 0x9D8);
+RelocAddr <uintptr_t> LoadingComplete_Hook(0x065CF640 + 0x9D2);
 
 static void LoadingComplete()
 {

@@ -1,6 +1,6 @@
 #include "GameData.h"
 
-RelocPtr <TESDataHandler *> g_dataHandler(0x094B5C98);
+RelocPtr <TESDataHandler *> g_dataHandler(0x09474418);
 
 TESDataHandler * TESDataHandler::GetSingleton()
 {

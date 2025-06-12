@@ -1,11 +1,11 @@
-Oblivion Remastered Script Extender v0.1.0 pre-alpha
+Oblivion Remastered Script Extender v0.2.0 alpha
 by Ian Patterson
 
-The Oblivion Remastered Script Extender, or OBSE64 for short, is a modder's resource that expands the modding capabilities of Oblivion Remastered. It's a plugin loader for now because people are making plugins with no version compatibility detection and that's dangerous/confusing for users. Fixing some of the areas where mods would conflict with each other is planned. We'll see where modding for this game goes - many things can be done from the embedded engine side, and other things can be done from the Unreal side, but communication back and forth is a problem. As modding will probably be very different, this is not intended to be a direct port of classic OBSE's functionality.
+The Oblivion Remastered Script Extender, or OBSE64 for short, is a modder's resource that expands the modding capabilities of Oblivion Remastered. We'll see where modding for this game goes - many things can be done from the embedded engine side, and other things can be done from the Unreal side, but communication back and forth is a problem. Support for classic OBSE's functionality is complete through release 6.
 
 [ Compatibility ]
 
-OBSE64 will support the latest version of Oblivion Remastered available on Steam, currently 0.411.140.0. The Gamepass/MS Store/EGS version is unsupported. Do not email asking for support.
+OBSE64 will support the latest version of Oblivion Remastered available on Steam, currently 1.511.102.0. The Gamepass/MS Store/EGS version is unsupported. Do not email asking for support.
 
 [ Installation ]
 
@@ -24,8 +24,8 @@ OBSE64 will support the latest version of Oblivion Remastered available on Steam
 * Can I modify and release my own version of OBSE64 based on the included source code?
 - No; the suggested method for extending OBSE64 is to write a plugin. If this does not meet your needs, please email the contact addresses listed below.
 
-* Can I include OBSE64 as part of a mod pack/collection or otherwise rehost the files?
-- No. Providing a link to https://www.nexusmods.com/oblivionremastered/mods/282 is the suggested method of distribution. Exceptions may be given under applicable circumstances; contact us at the email addresses below. This means that if you see this file available for download anywhere other than https://obse.silverlock.org, https://www.github.com/ianpatt/obse64, or on Nexus by any user other than https://www.nexusmods.com/users/2166624, that service is violating copyright. I don't like having to explicitly spell this out, but my hand has been forced.
+* Can I rehost OBSE64 as part of a mod pack or otherwise rehost the files?
+- No. Providing a link to https://www.nexusmods.com/oblivionremastered/mods/282 is the suggested method of distribution. Exceptions may be given under applicable circumstances; contact us at the email addresses below. This means that if you see this file available for download anywhere other than https://obse.silverlock.org, https://www.github.com/ianpatt/obse64, or on Nexus by any user other than https://www.nexusmods.com/users/2166624, that service is violating copyright. I don't like having to explicitly spell this out, but my hand has been forced. Nexus collections do not rehost the file, so that's OK. (this message was originally written before collections existed)
 
 * Where did the log files go?
 - <My Documents>\My Games\Oblivion Remastered\OBSE\Logs\
