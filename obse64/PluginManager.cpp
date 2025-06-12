@@ -681,7 +681,8 @@ void PluginManager::updateAddressLibraryPrompt()
 
 	if(result == IDYES)
 	{
-		ShellExecute(0, nullptr, "https://www.nexusmods.com/oblivionremastered/mods/0", nullptr, nullptr, 0);
+		// address library page not up at release time
+		ShellExecute(0, nullptr, "https://www.nexusmods.com/games/oblivionremastered/mods?keyword=address%20library", nullptr, nullptr, 0);
 		TerminateProcess(GetCurrentProcess(), 0);
 	}
 }
