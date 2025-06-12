@@ -264,38 +264,38 @@ enum CmdTablePatchType
 
 HookedCommandTable::PatchInfo kCmdTableStartPatches[] =
 {
-	{ 0x0696E720 + 0x0D1D + 0, 0, kPatchType_LeaToLoadBase },
+	{ 0x06942B70 + 0x0D0D + 0, 0, kPatchType_LeaToLoadBase },
 
-	{ 0x06972140 + 0x04C2 + 0, 0, kPatchType_LeaToLoadBase },
+	{ 0x06946570 + 0x04C2 + 0, 0, kPatchType_LeaToLoadBase },
 
-	{ 0x0698F100 + 0x006C + 0, 0, kPatchType_LeaToLoadBase },
+	{ 0x06963520 + 0x006C + 0, 0, kPatchType_LeaToLoadBase },
 
-	{ 0x06A35210 + 0x009B + 0, 0, kPatchType_LeaToLoadBase },
+	{ 0x06A095C0 + 0x009B + 0, 0, kPatchType_LeaToLoadBase },
 	
-	{ 0x0696FC80 + 0x0066 + 0, offsetof(CommandInfo, shortName), kPatchType_LeaToLoadBase },
-	{ 0x0696FC80 + 0x0122 + 0, offsetof(CommandInfo, opcode), kPatchType_LeaToLoadBase },
-	{ 0x0696FC80 + 0x0129 + 3, 0, kPatchType_WriteOffset32 },
+	{ 0x069440C0 + 0x0066 + 0, offsetof(CommandInfo, shortName), kPatchType_LeaToLoadBase },
+	{ 0x069440C0 + 0x0122 + 0, offsetof(CommandInfo, opcode), kPatchType_LeaToLoadBase },
+	{ 0x069440C0 + 0x0129 + 3, 0, kPatchType_WriteOffset32 },
 
 	{ 0, 0, kPatchType_End }
 };
 
 HookedCommandTable::PatchInfo kCmdTableEndPatches[] =
 {
-	{ 0x0696FC80 + 0x006D + 0, offsetof(CommandInfo, shortName) + sizeof(CommandInfo), kPatchType_LeaToLoadBase },
+	{ 0x069440C0 + 0x006D + 0, offsetof(CommandInfo, shortName) + sizeof(CommandInfo), kPatchType_LeaToLoadBase },
 
 	{ 0, 0, kPatchType_End }
 };
 
 HookedCommandTable::PatchInfo kCmdTableLenPatches[] =
 {
-	{ 0x0696E720 + 0x0D0C + 1, u32(-1), kPatchType_Data32 },
+	{ 0x06942B70 + 0x0CFC + 1, u32(-1), kPatchType_Data32 },
 
-	{ 0x06972140 + 0x04AF + 2, u32(-1), kPatchType_Data32 },
+	{ 0x06946570 + 0x04AF + 2, u32(-1), kPatchType_Data32 },
 
-	{ 0x06A35210 + 0x00A2 + 1, 0, kPatchType_Data32 },
+	{ 0x06A095C0 + 0x00A2 + 1, 0, kPatchType_Data32 },
 
-	{ 0x06A29DA0 + 0x008A + 2, 0x1000, kPatchType_Data32 },
-	{ 0x06A29DA0 + 0x01B9 + 2, 0x1000, kPatchType_Data32 },
+	{ 0x069FE150 + 0x008A + 2, 0x1000, kPatchType_Data32 },
+	{ 0x069FE150 + 0x01B9 + 2, 0x1000, kPatchType_Data32 },
 
 	{ 0, 0, kPatchType_End }
 };
