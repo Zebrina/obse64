@@ -396,8 +396,10 @@ const char * PluginManager::checkAddressLibrary(void)
 		GET_EXE_VERSION_BUILD(RUNTIME_VERSION),
 		0, buildType);
 
+	std::string alPath = getRuntimeDirectory() + fileName;
+
 	FileStream versionLib;
-	if(!versionLib.open(fileName))
+	if(!versionLib.open(alPath.c_str()))
 	{
 		m_oldAddressLibrary = true;
 		s_status = "disabled, address library needs to be updated";
@@ -681,8 +683,7 @@ void PluginManager::updateAddressLibraryPrompt()
 
 	if(result == IDYES)
 	{
-		// address library page not up at release time
-		ShellExecute(0, nullptr, "https://www.nexusmods.com/games/oblivionremastered/mods?keyword=address%20library", nullptr, nullptr, 0);
+		ShellExecute(0, nullptr, "https://www.nexusmods.com/oblivionremastered/mods/4475", nullptr, nullptr, 0);
 		TerminateProcess(GetCurrentProcess(), 0);
 	}
 }
