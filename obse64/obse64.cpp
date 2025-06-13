@@ -98,6 +98,9 @@ void OBSE64_Preinit()
 	if(runOnce) return;
 	runOnce = true;
 
+	std::string procDir = getRuntimeDirectory();
+	SetCurrentDirectory(procDir.c_str());
+
 	SYSTEMTIME now;
 	GetSystemTime(&now);
 
