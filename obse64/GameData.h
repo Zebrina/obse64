@@ -1,5 +1,6 @@
 #pragma once
 
+#include "GameForms.h"
 #include "GameTypes.h"
 #include "NiTypes.h"
 #include "obse64_common/Utilities.h"
@@ -38,29 +39,29 @@ public:
 	TESObjectListHead	* allObjects;			// 0000
 
 	// todo: check types
-	BSSimpleList <TESForm *>	formList0;	// 0008
-	BSSimpleList <TESForm *>	formList1;	// 0018
-	BSSimpleList <TESForm *>	formList2;	// 0028
-	BSSimpleList <TESForm *>	formList3;	// 0038
-	BSSimpleList <TESForm *>	formList4;	// 0048
-	BSSimpleList <TESForm *>	formList5;	// 0058
-	BSSimpleList <TESForm *>	formList6;	// 0068
-	BSSimpleList <TESForm *>	formList7;	// 0078
-	BSSimpleList <TESForm *>	formList8;	// 0088
-	BSSimpleList <TESForm *>	formList9;	// 0098
-	BSSimpleList <TESForm *>	formList10;	// 00A8
-	BSSimpleList <TESForm *>	formList11;	// 00B8
-	BSSimpleList <TESForm *>	formList12;	// 00C8
-	BSSimpleList <TESForm *>	formList13;	// 00D8
-	BSSimpleList <TESForm *>	formList14;	// 00E8
-	BSSimpleList <TESForm *>	formList15;	// 00F8
-	BSSimpleList <TESForm *>	formList16;	// 0108
-	BSSimpleList <TESForm *>	formList17;	// 0118
-	BSSimpleList <TESForm *>	formList18;	// 0128
-	BSSimpleList <TESForm *>	formList19;	// 0138
-	BSSimpleList <TESForm *>	formList20;	// 0148
-	BSSimpleList <TESForm *>	formList21;	// 0158
-	BSSimpleList <TESForm *>	formList22;	// 0168
+	BSSimpleList <TESForm *>	formListPackages;	    // 0008
+	BSSimpleList <TESForm *>	formListWorldSpaces;	// 0018
+	BSSimpleList <TESForm *>	formListClimates;	    // 0028
+	BSSimpleList <TESForm *>	formListWeathers;	    // 0038
+	BSSimpleList <TESForm *>	formListEnchantments;	// 0048
+	BSSimpleList <TESForm *>	formListSpells;	        // 0058
+	BSSimpleList <TESForm *>	formListHairs;	        // 0068
+	BSSimpleList <TESForm *>	formListEyes;	        // 0078
+	BSSimpleList <TESForm *>	formListRaces;	        // 0088
+	BSSimpleList <TESForm *>	formListLandTextures;	// 0098
+	BSSimpleList <TESForm *>	formListClasses;	    // 00A8
+	BSSimpleList <TESForm *>	formListFactions;	    // 00B8
+	BSSimpleList <TESForm *>	formListScripts;	    // 00C8
+	BSSimpleList <TESForm *>	formListSounds;	        // 00D8
+	BSSimpleList <TESForm *>	formListGlobals;	    // 00E8
+	BSSimpleList <TESForm *>	formListDialogues;	    // 00F8
+	BSSimpleList <TESForm *>	formListQuests;	        // 0108
+	BSSimpleList <TESForm *>	formListBirthsigns;	    // 0118
+	BSSimpleList <TESForm *>	formListCombatStyles;	// 0128
+	BSSimpleList <TESForm *>	formListLoadScreens;	// 0138
+	BSSimpleList <TESForm *>	formListWaterForms;	    // 0148
+	BSSimpleList <TESForm *>	formListEffectShaders;	// 0158
+	BSSimpleList <TESForm *>	formListANIO;           // 0168
 	
 	TESRegionList	* regionList;	// 0178
 
@@ -87,6 +88,60 @@ public:
 
 	MEMBER_FN_PREFIX(TESDataHandler);
 	DEFINE_MEMBER_FN(UnkInit, void, 0x0662B9C0);
+
+    // iterator support.
+
+    class iterator
+    {
+    public:
+        TESObject* operator*() { return object_; }
+        TESObject* operator->() { return object_; }
+
+        bool operator==(const iterator other) const { return other.object_ == object_; }
+        bool operator!=(const iterator other) const { return !(other == *this); }
+
+        iterator operator++()
+        {
+            object_ = object_->objectListNext;
+            return *this;
+        }
+
+    private:
+        friend class TESDataHandler;
+
+        iterator(TESObject* object) : object_(object) {}
+
+        TESObject* object_;
+    };
+
+    iterator begin() { return iterator{ allObjects->first }; }
+    iterator end() { return iterator{ nullptr }; }
+
+    class const_iterator
+    {
+    public:
+        const TESObject* operator*() { return object_; }
+        const TESObject* operator->() { return object_; }
+
+        bool operator==(const const_iterator other) const { return other.object_ == object_; }
+        bool operator!=(const const_iterator other) const { return !(other == *this); }
+
+        const_iterator operator++()
+        {
+            object_ = object_->objectListNext;
+            return *this;
+        }
+
+    private:
+        friend class TESDataHandler;
+
+        const_iterator(const TESObject* object) : object_(object) {}
+
+        const TESObject* object_;
+    };
+
+    const_iterator begin() const { return const_iterator{ allObjects->first }; }
+    const_iterator end() const { return const_iterator{ nullptr }; }
 };
 
 static_assert(sizeof(TESDataHandler) == 0x1860);
