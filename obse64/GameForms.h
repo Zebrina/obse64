@@ -4,6 +4,8 @@
 #include "AltarSync.h"
 #include "GameBSExtraData.h"
 
+#include <cstddef>
+
 class TESForm;
 class TESFile;
 class TESObjectCELL;
@@ -307,6 +309,18 @@ public:
 
 static_assert(sizeof(TESBoundAnimObject) == 0x48);
 
+class TESObjectNPC : public TESBoundAnimObject
+{
+public:
+
+    unk64 unk48;
+    unk64 unk50;
+    unk16 unk58;
+    short level; // 5A
+};
+
+static_assert(offsetof(TESObjectNPC, level) == 0x5A);
+
 // 20
 class TESContainer : public BaseFormComponent
 {
@@ -501,6 +515,22 @@ public:
 };
 
 static_assert(sizeof(TESObjectLIGH) == 0x108);
+
+class TESObjectARMO : public TESBoundObject // ?
+{
+public:
+
+    u64 unk48[(0x90 - 0x48) / 8];
+    TESValueForm    value;  // 090
+    TESWeightForm   weight; // 0A0
+    TESHealthForm   health; // 0B0
+    u64 unkC0[(0x1C0 - 0xC0) / 8];
+    short armorTimes100;
+};
+
+static_assert(offsetof(TESObjectARMO, value) == 0x90);
+static_assert(offsetof(TESObjectARMO, weight) == 0xA0);
+static_assert(offsetof(TESObjectARMO, armorTimes100) == 0x1C0);
 
 // 128
 class TESObjectWEAP : public TESBoundAnimObject
