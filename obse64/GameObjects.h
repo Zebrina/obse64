@@ -40,7 +40,7 @@ public:
 	virtual void Unk_45();
 	virtual void Unk_46();
 	virtual void Unk_47();
-	virtual void Unk_48();
+	virtual bool EquipObject(TESBoundObject* object, int count = 1, BaseExtraList* extraList = nullptr, bool preventUnequip = false); // 48
 	virtual void Unk_49();
 	virtual void Unk_4A();
 	virtual void Unk_4B();
@@ -52,14 +52,14 @@ public:
 	virtual void Unk_51();
 	virtual void Unk_52();
 	virtual void Unk_53();
-	virtual void Unk_54();
+	virtual bool Unk_54();
 	virtual void Unk_55();
 	virtual void Unk_56();
 	virtual void Unk_57();
 	virtual void Unk_58();
 	virtual void Unk_59();
 	virtual void Unk_5A();
-	virtual void Unk_5B();
+	virtual int Unk_5B(/* No args */);
 	virtual void Unk_5C();
 	virtual void Unk_5D();
 	virtual void Unk_5E();
@@ -76,7 +76,7 @@ public:
 	virtual void Unk_69();
 	virtual void Unk_6A();
 	virtual void Unk_6B();
-	virtual void Unk_6C();
+	virtual bool Unk_6C();
 	virtual void Unk_6D();
 	virtual void Unk_6E();
 	virtual void Unk_6F();
@@ -145,6 +145,84 @@ public:
 
 static_assert(sizeof(MobileObject) == 0x148);
 
+enum
+{
+    kActorValue_Strength,
+    kActorValue_Intelligence,
+    kActorValue_Willpower,
+    kActorValue_Agility,
+    kActorValue_Speed,
+    kActorValue_Endurance,
+    kActorValue_Personality,
+    kActorValue_Luck,
+    kActorValue_Health,
+    kActorValue_Magicka,
+    kActorValue_Fatigue,
+    kActorValue_Encumbrance,
+    kActorValue_Armorer,
+    kActorValue_Athletics,
+    kActorValue_Blade,
+    kActorValue_Block,
+    kActorValue_Blunt,
+    kActorValue_HandToHand,
+    kActorValue_HeavyArmor,
+    kActorValue_Alchemy,
+    kActorValue_Alteration,
+    kActorValue_Conjuration,
+    kActorValue_Destruction,
+    kActorValue_Illusion,
+    kActorValue_Mysticism,
+    kActorValue_Restoration,
+    kActorValue_Acrobatics,
+    kActorValue_LightArmor,
+    kActorValue_Marksman,
+    kActorValue_Mercantile,
+    kActorValue_Security,
+    kActorValue_Sneak,
+    kActorValue_Speechcraft,
+    kActorValue_Aggression,
+    kActorValue_Confidence,
+    kActorValue_Energy,
+    kActorValue_Responsibility,
+    kActorValue_Bounty,
+    kActorValue_Fame,
+    kActorValue_Infamy,
+    kActorValue_MagickaMultiplier,
+    kActorValue_NightEyeBonus,
+    kActorValue_AttachBonus,
+    kActorValue_DefendBonus,
+    kActorValue_CastingPenalty,
+    kActorValue_Blindness,
+    kActorValue_Chameleon,
+    kActorValue_Invisibility,
+    kActorValue_Paralysis,
+    kActorValue_Silence,
+    kActorValue_Confusion,
+    kActorValue_DetectItemRange,
+    kActorValue_SpellAbsorbChance,
+    kActorValue_SpellReflectChance,
+    kActorValue_SwimSpeedMultiplier,
+    kActorValue_WaterBreathing,
+    kActorValue_WaterWalking,
+    kActorValue_StuntedMagicka,
+    kActorValue_DetectLifeRange,
+    kActorValue_ReflectDamage,
+    kActorValue_Telekinesis,
+    kActorValue_ResistFire,
+    kActorValue_ResistFrost,
+    kActorValue_ResistDisease,
+    kActorValue_ResistMagic,
+    kActorValue_ResistNormalWeapons,
+    kActorValue_ResistParalysis,
+    kActorValue_ResistPoison,
+    kActorValue_ResistShock,
+    kActorValue_Vampirism,
+    kActorValue_Darkness,
+    kActorValue_ResistWaterDamage,
+
+    kActorValue_NumActorValues,
+};
+
 // 318
 class Actor : public MobileObject
 {
@@ -186,7 +264,7 @@ public:
 	virtual void Unk_B0();
 	virtual void Unk_B1();
 	virtual void Unk_B2();
-	virtual void Unk_B3();
+	virtual void ModActorValue(uint8_t actorValue, float amount, u32 unk3 = 0); // B3
 	virtual void Unk_B4();
 	virtual void Unk_B5();
 	virtual void Unk_B6();
@@ -195,7 +273,7 @@ public:
 	virtual void Unk_B9();
 	virtual void Unk_BA();
 	virtual void Unk_BB();
-	virtual void Unk_BC();
+	virtual bool UnequipObject(TESBoundObject* object, int count = 1, BaseExtraList* extraList = nullptr, bool unk4 = false, bool unk5 = false); // BC
 	virtual void Unk_BD();
 	virtual void Unk_BE();
 	virtual void Unk_BF();
@@ -281,6 +359,16 @@ public:
 	virtual void Unk_10F();
 
 	u64	unk148[(0x318 - 0x148) / 8];
+
+    MEMBER_FN_PREFIX(Actor);
+    // Inventory menu => ..., false, false
+    // Hotkey wheel => ..., true, false,
+    DEFINE_MEMBER_FN(EquipItem, void, 0x065A7F60, TESBoundObject* object, int count, ExtraDataList* extraList, bool ignoreEnchantment, bool preventUnequip);
+    // Inventory menu => ..., true, false, false
+    // Hotkey wheel => ..., false, false, false
+    DEFINE_MEMBER_FN(UnquipItem, void, 0x065C93F0, TESBoundObject* object, int count, ExtraDataList* extraList, bool unk4, bool unk5, bool unk6);
+    DEFINE_MEMBER_FN(AddObjectEnchantment, void, 0x065EDD80, TESBoundObject* object, ExtraDataList* extraList);
+    DEFINE_MEMBER_FN(RemoveObjectEnchantment, void, 0x06600EB0, TESBoundObject* object, ExtraDataList* extraList);
 };
 
 static_assert(sizeof(Actor) == 0x318);
@@ -300,24 +388,110 @@ static_assert(sizeof(Character) == 0x328);
 class PlayerCharacter : public Character
 {
 public:
+    struct ActorValueMods
+    {
+        union
+        {
+            float indexed[kActorValue_NumActorValues];
+            struct {
+                float strength;
+                float intelligence;
+                float willpower;
+                float agility;
+                float speed;
+                float endurance;
+                float personality;
+                float luck;
+                float health;
+                float magicka;
+                float fatigue;
+                float encumbrance;
+                float armorer;
+                float athletics;
+                float blade;
+                float block;
+                float blunt;
+                float handToHand;
+                float heavyArmor;
+                float alchemy;
+                float alteration;
+                float conjuration;
+                float destruction;
+                float illusion;
+                float mysticism;
+                float restoration;
+                float acrobatics;
+                float lightArmor;
+                float marksman;
+                float mercantile;
+                float security;
+                float sneak;
+                float speechcraft;
+                float aggression;
+                float confidence;
+                float energy;
+                float responsibility;
+                float bounty;
+                float fame;
+                float infamy;
+                float magickaMultiplier;
+                float nightEyeBonus;
+                float attachBonus;
+                float defendBonus;
+                float castingPenalty;
+                float blindness;
+                float chameleon;
+                float invisibility;
+                float paralysis;
+                float silence;
+                float confusion;
+                float detectItemRange;
+                float spellAbsorbChance;
+                float spellReflectChance;
+                float swimSpeedMultiplier;
+                float waterBreathing;
+                float waterWalking;
+                float stuntedMagicka;
+                float detectLifeRange;
+                float reflectDamage;
+                float telekinesis;
+                float resistFire;
+                float resistFrost;
+                float resistDisease;
+                float resistMagic;
+                float resistNormalWeapons;
+                float resistParalysis;
+                float resistPoison;
+                float resistShock;
+                float vampirism;
+                float darkness;
+                float resistWaterDamage;
+            };
+        };
+    };
+
+    static_assert(sizeof(ActorValueMods) == (kActorValue_NumActorValues * sizeof(float)));
+
 	virtual ~PlayerCharacter();
 
-	u64 unk328[(0x464 - 0x328) / 8];
-    u32 unk460;
-    float actorValueTempMod[71]; // 464
-    u64 unk628[(0x6A4 - 0x580) / 8];
-    u32 unk6A0;
-    float healthLost; // 6A4
-    float magickaLost; // 6A8
-    float fatigueLost; // 6AC
-    float actorValueDamage[71]; // 6B0
+    u64 unk328;
+    float calculatedArmor;                  // 330 (Setting this to -1 will cause it to be recalculated.)
+    u32 unk334;
+	u64 unk338[(0x474 - 0x338) / 8];
+    u32 unk470;
+    ActorValueMods actorValueTempMod;       // 474
+    ActorValueMods actorValuePermanentMod;  // 594
+    float healthMissing;                    // 6B4
+    float magickaMissing;                   // 6B8
+    float fatigueMissing;                   // 6BC
+    ActorValueMods actorValueDamage;        // 6C0
     u64 unk6B[(0x830 - 0x7CC) / 8];
-	u32 unk830;
-	int timesTrainedThisLevel;	// 834
+	u32 unk840;
+	int timesTrainedThisLevel;              // 844
 	u64 unk838[(0x944 - 0x838) / 8];
-	u32 unk940;
-	int timesTrainedTotal;		// 944
-	u64 unk98C[(0xB70 - 0x948) / 8];
+	u32 unk950;
+	int timesTrainedTotal;                  // 954
+	u64 unk98C[(0xB80 - 0x958) / 8];
 
 	static PlayerCharacter * Get();
 
@@ -326,9 +500,11 @@ public:
 	DEFINE_MEMBER_FN(SetActiveSpell, void, 0x06604B40, MagicItem *);
 };
 
-static_assert(sizeof(PlayerCharacter) == 0xB70);
-static_assert(offsetof(PlayerCharacter, actorValueTempMod) == 0x464);
-static_assert(offsetof(PlayerCharacter, healthLost) == 0x6A4);
-static_assert(offsetof(PlayerCharacter, actorValueDamage) == 0x6B0);
-static_assert(offsetof(PlayerCharacter, timesTrainedThisLevel) == 0x834);
-static_assert(offsetof(PlayerCharacter, timesTrainedTotal) == 0x944);
+static_assert(sizeof(PlayerCharacter) == 0xB80);
+static_assert(offsetof(PlayerCharacter, calculatedArmor) == 0x330);
+static_assert(offsetof(PlayerCharacter, actorValueTempMod) == 0x474);
+static_assert(offsetof(PlayerCharacter, actorValuePermanentMod) == 0x594);
+static_assert(offsetof(PlayerCharacter, healthMissing) == 0x6B4);
+static_assert(offsetof(PlayerCharacter, actorValueDamage) == 0x6C0);
+static_assert(offsetof(PlayerCharacter, timesTrainedThisLevel) == 0x844);
+static_assert(offsetof(PlayerCharacter, timesTrainedTotal) == 0x954);
